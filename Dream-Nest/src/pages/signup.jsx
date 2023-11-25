@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link } from 'react-router-dom'; // If you're using React Router
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import "./Login.css";
 import dreamNest from "../Images/dreamNest.png";
 import facebook from "../Images/facebook.png";
@@ -11,41 +11,67 @@ import axios from "axios";
 const baseURL = "http://localhost:4000/register";
 
 const Login = () => {
-    const [registerDetail, setregisterDetail] = useState({
+    const [registerDetail, setRegisterDetail] = useState({
         name: '',
         email: '',
         password: '',
     });
 
     const [postResponse, setPostResponse] = useState(null);
-    
+
+    const registerDataChange = (e) => {
+        setRegisterDetail({
+            ...registerDetail,
+            [e.target.id]: e.target.value,
+        });
+    };
+
+    const registerSubmit = (e) => {
+        e.preventDefault();
+
+        axios.post(baseURL, registerDetail)
+            .then((response) => {
+                setPostResponse(response.data);
+                document.getElementById("login-form").reset();
+            })
+            .catch((error) => {
+                console.error('Error creating post:', error);
+            });
+    };
+
     return (
         <div>
-            <header>
-                <div id="nav1">
-                    <img src={dreamNest} alt="" />
-                </div>
-                <div id="nav2">
-                    <ul className="home-nav">
-                        <li><Link to="/">Home</Link></li>
-                        <li><Link to="#">News</Link></li>
-                        <li><Link to="/teams">Team</Link></li>
-                        <li><Link to="/contact">Contact</Link></li>
-                        <li><Link to="/login"><button className="btn">Login</button></Link></li>
-                    </ul>
-                </div>
-            </header>
+            {/* Header code here */}
+
             <div className="bgi">
                 <div className="form-container" id="box-container">
                     <h2 className="form-title">Login</h2>
-                    <form id="login-form">
-                        <input type="text" id="login-username" placeholder="Name" required />
-                        <input type="email" id="email" placeholder="email" required />
+                    <form id="login-form" onSubmit={registerSubmit}>
+                        <input
+                            type="text"
+                            id="name"
+                            placeholder="Name"
+                            required
+                            onChange={registerDataChange}
+                        />
+                        <input
+                            type="email"
+                            id="email"
+                            placeholder="Email"
+                            required
+                            onChange={registerDataChange}
+                        />
                         <div className="password-container">
-                            <input type="password" id="login-password" placeholder="Password" required />
+                            <input
+                                type="password"
+                                id="password"
+                                placeholder="Password"
+                                required
+                                onChange={registerDataChange}
+                            />
                             <i className="fas fa-eye password-icon" id="password-toggle"></i>
                         </div>
-                        <button id="login-button">Login</button>
+                        <button type='submit' id="login-button" value="Register">Register</button>
                     </form>
                     <p>
                         Don't have an account? <Link to="/login">Login</Link>
