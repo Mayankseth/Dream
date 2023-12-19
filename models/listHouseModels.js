@@ -10,19 +10,19 @@ const propertySchema = mongoose.Schema({
     required: [true, "Please Enter Property Description"],
   },
   price: {
-    type: Number,
+    type: String,
     required: [true, "Please Enter Property Price"],
     maxLength: [12, "Price cannot exceed 8 characters"],
   },
   images: [
     {
       public_id: {
-        type: String,
-        required: true,
+        type: String
+        // required: true,
       },
       url: {
-        type: String,
-        required: true,
+        type: String
+        // required: true,
       },
     },
   ],
@@ -35,10 +35,10 @@ const propertySchema = mongoose.Schema({
     required: [true, "Please Enter Owner Name"],
     trim: true,
   },
-  ownerNumber: {
-    type: Number,
+  ownernumber: {
+    type: String,
     required: [true, "Please Enter Owner Number"],
-    trim: true,
+    maxLength: [12, "Price cannot exceed 10 Number"],
   },
   address: {
     type: String,

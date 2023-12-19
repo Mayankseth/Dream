@@ -61,7 +61,7 @@ const Home = () => {
             </div>
             <div className="right-home">
               <h1 className="centered2">
-                <a href="#">SELL</a>
+                <a href="/sell">SELL</a>
               </h1>
               <div className="temp1"></div>
               <img src={img2} alt="" />

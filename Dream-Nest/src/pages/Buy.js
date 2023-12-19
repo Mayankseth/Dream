@@ -44,6 +44,7 @@ const App = () => {
       <main>
         {post.map((property) => (
           <div key={property._id} className="property">
+          <Link to={`/buy/${property._id}`} key={property._id} className="property">
             <h2>{property.name}</h2>
             <p>{property.description}</p>
             <p>Price: ${property.price}</p>
@@ -55,6 +56,7 @@ const App = () => {
 
             <p>Category: {property.category}</p>
             <p>Created At: {property.createdAt}</p>
+            </Link>
           </div>
         ))}
       </main>

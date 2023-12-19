@@ -7,6 +7,8 @@ import insta from "../Images/insta.png";
 import xlogo from "../Images/xlogo.png";
 import linkedin from "../Images/linkedIn.png";
 import axios from "axios";
+import Cookies from 'js-cookie';
+
 
 const baseURL = "http://localhost:4000";
 
@@ -14,6 +16,7 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -31,6 +34,7 @@ const Login = () => {
 
       
       const token = response.data.token;
+      Cookies.set('JWTtoken', token);
       console.log ("login succefully " + token);
     } catch (error) {
       setMessage("Invalid username or password");
